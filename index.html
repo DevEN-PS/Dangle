@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Dangle</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚡</text></svg>">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- Minimalist Info Bar (Discreet Level & Time) -->
+    <div class="minimal-hud">
+        <span class="level-tag" id="levelText">1 / 10</span>
+        <span class="timer-tag" id="timerText">00:00</span>
+    </div>
+
+    <!-- Fullscreen Network Canvas -->
+    <div id="networkContainer"></div>
+
+    <!-- Minimalist Controls (Glowing Spark Hint & Subtle Reset) -->
+    <div class="corner-controls">
+        <button class="icon-btn" id="btnReset" title="Reset Level">
+            <svg viewBox="0 0 24 24">
+                <path d="M17.65 6.35A7.958 7.958 0 0012 4c-4.42 0-7.99 3.58-7.99 8s3.57 8 7.99 8c3.73 0 6.84-2.55 7.73-6h-2.08A5.99 5.99 0 0112 18c-3.31 0-6-2.69-6-6s2.69-6 6-6c1.66 0 3.14.69 4.22 1.78L13 11h7V4l-2.35 2.35z"/>
+            </svg>
+        </button>
+
+        <button class="spark-btn" id="btnSparkHint" title="Spark Hint">
+            <svg viewBox="0 0 24 24">
+                <path d="M7 2v11h3v9l7-12h-4l4-8z"/>
+            </svg>
+        </button>
+    </div>
+
+    <!-- Minimalist Victory Dialog -->
+    <div class="modal-overlay hidden" id="victoryModal">
+        <div class="modal-card">
+            <div class="victory-title">CLEARED</div>
+            <div class="victory-sub">
+                <span id="victoryLevel">Level 1</span> • <span id="victoryTime">00:00</span>
+            </div>
+            <button class="btn-next" id="btnNextLevel">Next ➔</button>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="vis-network.min.js"></script>
+    <script src="audio.js"></script>
+    <script src="graph.js"></script>
+    <script src="game.js"></script>
+</body>
+</html>
