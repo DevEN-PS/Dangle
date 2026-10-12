@@ -25,14 +25,18 @@ class MinimalGameEngine {
         this.initDOM();
         this.bindEvents();
         this.loadLevel(0);
+        this.checkFirstVisitHelp();
     }
 
     initDOM() {
         this.dom = {
             timer: document.getElementById('timerText'),
             levelText: document.getElementById('levelText'),
+            btnHelp: document.getElementById('btnHelp'),
             btnHint: document.getElementById('btnSparkHint'),
             btnReset: document.getElementById('btnReset'),
+            helpModal: document.getElementById('helpModal'),
+            btnCloseHelp: document.getElementById('btnCloseHelp'),
             victoryModal: document.getElementById('victoryModal'),
             victoryLevel: document.getElementById('victoryLevel'),
             victoryTime: document.getElementById('victoryTime'),
@@ -47,6 +51,14 @@ class MinimalGameEngine {
             }
         });
 
+        this.dom.btnHelp.addEventListener('click', () => {
+            this.openHelpModal();
+        });
+
+        this.dom.btnCloseHelp.addEventListener('click', () => {
+            this.closeHelpModal();
+        });
+
         this.dom.btnHint.addEventListener('click', () => {
             this.applyHint();
         });
@@ -57,17 +69,39 @@ class MinimalGameEngine {
 
         this.dom.btnNextLevel.addEventListener('click', () => {
             this.dom.victoryModal.classList.add('hidden');
-            if (this.currentLevelIndex < LEVELS.length - 1) {
-                this.loadLevel(this.currentLevelIndex + 1);
-            } else {
-                this.loadLevel(0);
-            }
+            this.loadLevel(this.currentLevelIndex + 1);
         });
+    }
+
+    checkFirstVisitHelp() {
+        try {
+            const seen = localStorage.getItem('dangle_help_seen');
+            if (!seen) {
+                this.openHelpModal();
+            }
+        } catch (e) {
+            this.openHelpModal();
+        }
+    }
+
+    openHelpModal() {
+        if (this.dom.helpModal) {
+            this.dom.helpModal.classList.remove('hidden');
+        }
+    }
+
+    closeHelpModal() {
+        if (this.dom.helpModal) {
+            this.dom.helpModal.classList.add('hidden');
+        }
+        try {
+            localStorage.setItem('dangle_help_seen', 'true');
+        } catch (e) {}
     }
 
     loadLevel(index) {
         this.currentLevelIndex = index;
-        const config = LEVELS[index];
+        const config = typeof getLevelConfig === 'function' ? getLevelConfig(index + 1) : { level: index + 1, nodes: 6, ties: 1 };
 
         if (this.animFrameId) {
             cancelAnimationFrame(this.animFrameId);
@@ -83,8 +117,8 @@ class MinimalGameEngine {
         this.sparks = [];
         this.dom.victoryModal.classList.add('hidden');
 
-        // Minimal HUD: "1 / 10"
-        this.dom.levelText.textContent = `${config.level} / ${LEVELS.length}`;
+        // Show only current level: "LEVEL 1"
+        this.dom.levelText.textContent = `LEVEL ${config.level}`;
 
         this.initNetwork();
         this.startAmbientBreathing();

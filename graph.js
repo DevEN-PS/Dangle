@@ -13,6 +13,19 @@ const LEVELS = [
     { level: 10, nodes: 200, ties: 38 }
 ];
 
+function getLevelConfig(lvl) {
+    if (lvl <= 10) {
+        return LEVELS[lvl - 1];
+    }
+    // Procedural unlimited levels beyond 10
+    const cycle = (lvl - 10) % 8;
+    const baseNodes = [85, 120, 160, 200, 100, 140, 180, 220][cycle];
+    const jitter = ((lvl * 37) % 21) - 10;
+    const nodeCount = Math.max(50, Math.min(220, baseNodes + jitter));
+    const ties = Math.max(8, Math.floor(nodeCount * 0.18));
+    return { level: lvl, nodes: nodeCount, ties: ties };
+}
+
 const NODE_COLORS = [
     "#00e5ff", // Cyan
     "#00ff88", // Neon Emerald
@@ -282,7 +295,8 @@ class PuzzleGraph {
 if (typeof window !== 'undefined') {
     window.PuzzleGraph = PuzzleGraph;
     window.LEVELS = LEVELS;
+    window.getLevelConfig = getLevelConfig;
 }
 if (typeof module !== 'undefined') {
-    module.exports = { PuzzleGraph, LEVELS };
+    module.exports = { PuzzleGraph, LEVELS, getLevelConfig };
 }

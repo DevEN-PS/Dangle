@@ -11,15 +11,21 @@
 
     <!-- Minimalist Info Bar (Discreet Level & Time) -->
     <div class="minimal-hud">
-        <span class="level-tag" id="levelText">1 / 10</span>
+        <span class="level-tag" id="levelText">LEVEL 1</span>
         <span class="timer-tag" id="timerText">00:00</span>
     </div>
 
     <!-- Fullscreen Network Canvas -->
     <div id="networkContainer"></div>
 
-    <!-- Minimalist Controls (Glowing Spark Hint & Subtle Reset) -->
-    <div class="corner-controls">
+    <!-- Top-Right Controls (How to Play, Reset, Spark Hint) -->
+    <div class="top-controls">
+        <button class="icon-btn" id="btnHelp" title="How to Play">
+            <svg viewBox="0 0 24 24">
+                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 16h-2v-2h2v2zm1.07-7.75l-.9.92C12.45 11.9 12 12.5 12 14h-2v-.5c0-1.1.45-2.1 1.17-2.83l1.24-1.26c.37-.36.59-.86.59-1.41 0-1.1-.9-2-2-2s-2 .9-2 2H7c0-2.76 2.24-5 5-5s5 2.24 5 5c0 1.04-.42 1.99-1.07 2.75z"/>
+            </svg>
+        </button>
+
         <button class="icon-btn" id="btnReset" title="Reset Level">
             <svg viewBox="0 0 24 24">
                 <path d="M17.65 6.35A7.958 7.958 0 0012 4c-4.42 0-7.99 3.58-7.99 8s3.57 8 7.99 8c3.73 0 6.84-2.55 7.73-6h-2.08A5.99 5.99 0 0112 18c-3.31 0-6-2.69-6-6s2.69-6 6-6c1.66 0 3.14.69 4.22 1.78L13 11h7V4l-2.35 2.35z"/>
@@ -31,6 +37,84 @@
                 <path d="M7 2v11h3v9l7-12h-4l4-8z"/>
             </svg>
         </button>
+    </div>
+
+    <!-- How to Play Modal (Opens on first visit, or clicking ?) -->
+    <div class="modal-overlay hidden" id="helpModal">
+        <div class="modal-card help-card">
+            <div class="help-title">HOW TO PLAY</div>
+            
+            <!-- 3 Step Visual Progression -->
+            <div class="tutorial-steps">
+                <!-- Step 1: Meshed / Tangled -->
+                <div class="step-card">
+                    <div class="step-canvas-wrap">
+                        <svg viewBox="0 0 110 80" class="step-svg">
+                            <rect width="110" height="80" rx="8" fill="#0b0e18"/>
+                            <path d="M 20 20 Q 55 45 90 62" stroke="#ff2a6d" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+                            <path d="M 88 18 Q 55 35 22 62" stroke="#ff2a6d" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+                            <path d="M 20 20 Q 15 42 22 62" stroke="#888888" stroke-width="1.8" fill="none" stroke-linecap="round"/>
+                            <path d="M 88 18 Q 94 40 90 62" stroke="#888888" stroke-width="1.8" fill="none" stroke-linecap="round"/>
+                            <circle cx="55" cy="40" r="5" fill="#ff2a6d"/>
+                            <circle cx="55" cy="40" r="2" fill="#ffffff"/>
+                            <circle cx="59" cy="36" r="1.2" fill="#ffd700"/>
+                            <circle cx="51" cy="45" r="1" fill="#ffea00"/>
+                            <circle cx="60" cy="44" r="0.9" fill="#ffd700"/>
+                            <circle cx="20" cy="20" r="6" fill="#00e5ff" stroke="#ffffff" stroke-width="1.5"/>
+                            <circle cx="88" cy="18" r="6" fill="#ffd700" stroke="#ffffff" stroke-width="1.5"/>
+                            <circle cx="22" cy="62" r="6" fill="#ff2a8d" stroke="#ffffff" stroke-width="1.5"/>
+                            <circle cx="90" cy="62" r="6" fill="#00ff88" stroke="#ffffff" stroke-width="1.5"/>
+                        </svg>
+                    </div>
+                    <div class="step-label">1. Tangled</div>
+                    <div class="step-desc">Red sparks on crossed wires</div>
+                </div>
+
+                <!-- Step 2: Dragging & Untangling -->
+                <div class="step-card">
+                    <div class="step-canvas-wrap">
+                        <svg viewBox="0 0 110 80" class="step-svg">
+                            <rect width="110" height="80" rx="8" fill="#0b0e18"/>
+                            <path d="M 20 20 Q 35 48 56 68" stroke="#00e5ff" stroke-width="2.2" fill="none" stroke-dasharray="3 2" stroke-linecap="round"/>
+                            <path d="M 88 18 Q 45 35 22 55" stroke="#C0C0C0" stroke-width="2" fill="none" stroke-linecap="round"/>
+                            <path d="M 20 20 Q 15 38 22 55" stroke="#C0C0C0" stroke-width="1.8" fill="none" stroke-linecap="round"/>
+                            <path d="M 88 18 Q 78 52 56 68" stroke="#C0C0C0" stroke-width="2" fill="none" stroke-linecap="round"/>
+                            <path d="M 82 58 L 62 66" stroke="#00e5ff" stroke-width="1.5" stroke-linecap="round" stroke-dasharray="2 2"/>
+                            <circle cx="20" cy="20" r="6" fill="#00e5ff" stroke="#ffffff" stroke-width="1.5"/>
+                            <circle cx="88" cy="18" r="6" fill="#ffd700" stroke="#ffffff" stroke-width="1.5"/>
+                            <circle cx="22" cy="55" r="6" fill="#ff2a8d" stroke="#ffffff" stroke-width="1.5"/>
+                            <circle cx="56" cy="68" r="9" fill="none" stroke="#00e5ff" stroke-width="1.5" stroke-dasharray="3 2"/>
+                            <circle cx="56" cy="68" r="6.5" fill="#00ff88" stroke="#ffffff" stroke-width="2"/>
+                            <path d="M 64 74 L 69 79" stroke="#ffffff" stroke-width="1.5" stroke-linecap="round"/>
+                        </svg>
+                    </div>
+                    <div class="step-label">2. Drag & Stretch</div>
+                    <div class="step-desc">Pull nodes to flex wires</div>
+                </div>
+
+                <!-- Step 3: All Removed / Green Grid -->
+                <div class="step-card">
+                    <div class="step-canvas-wrap">
+                        <svg viewBox="0 0 110 80" class="step-svg">
+                            <rect width="110" height="80" rx="8" fill="#0b0e18"/>
+                            <path d="M 22 24 Q 55 16 88 24" stroke="#00ff88" stroke-width="2.8" fill="none" stroke-linecap="round"/>
+                            <path d="M 88 24 Q 96 44 88 64" stroke="#00ff88" stroke-width="2.8" fill="none" stroke-linecap="round"/>
+                            <path d="M 88 64 Q 55 72 22 64" stroke="#00ff88" stroke-width="2.8" fill="none" stroke-linecap="round"/>
+                            <path d="M 22 64 Q 14 44 22 24" stroke="#00ff88" stroke-width="2.8" fill="none" stroke-linecap="round"/>
+                            <path d="M 22 24 Q 55 44 88 64" stroke="#00ff88" stroke-width="2.8" fill="none" stroke-linecap="round"/>
+                            <circle cx="22" cy="24" r="6" fill="#00e5ff" stroke="#00ff88" stroke-width="2"/>
+                            <circle cx="88" cy="24" r="6" fill="#ffd700" stroke="#00ff88" stroke-width="2"/>
+                            <circle cx="22" cy="64" r="6" fill="#ff2a8d" stroke="#00ff88" stroke-width="2"/>
+                            <circle cx="88" cy="64" r="6" fill="#00ff88" stroke="#ffffff" stroke-width="2"/>
+                        </svg>
+                    </div>
+                    <div class="step-label">3. Cleared!</div>
+                    <div class="step-desc">All wires glow emerald green</div>
+                </div>
+            </div>
+
+            <button class="btn-play" id="btnCloseHelp">PLAY ➔</button>
+        </div>
     </div>
 
     <!-- Minimalist Victory Dialog -->
