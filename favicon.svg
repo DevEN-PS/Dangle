@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0f172a"/>
+      <stop offset="100%" stop-color="#020617"/>
+    </linearGradient>
+    <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="1.5" result="blur" />
+      <feComposite in="SourceGraphic" in2="blur" operator="over" />
+    </filter>
+  </defs>
+
+  <!-- Sleek rounded dark badge for high contrast on light & dark browser tabs -->
+  <rect width="100" height="100" rx="22" fill="url(#bgGrad)"/>
+  <rect width="98" height="98" x="1" y="1" rx="21" fill="none" stroke="#1e293b" stroke-width="1.5"/>
+
+  <!-- Curved Network Lines connecting 5 nodes -->
+  <!-- Outer perimeter curves -->
+  <path d="M 50 16 Q 74 22 82 40" stroke="#00e5ff" stroke-width="2.8" stroke-linecap="round" fill="none" opacity="0.85"/>
+  <path d="M 82 40 Q 84 62 70 78" stroke="#ffd700" stroke-width="2.8" stroke-linecap="round" fill="none" opacity="0.85"/>
+  <path d="M 70 78 Q 50 86 30 78" stroke="#00ff88" stroke-width="2.8" stroke-linecap="round" fill="none" opacity="0.85"/>
+  <path d="M 30 78 Q 16 62 18 40" stroke="#ff2a8d" stroke-width="2.8" stroke-linecap="round" fill="none" opacity="0.85"/>
+  <path d="M 18 40 Q 26 22 50 16" stroke="#a855f7" stroke-width="2.8" stroke-linecap="round" fill="none" opacity="0.85"/>
+
+  <!-- Inner curved cross-connections (PyPSA style mesh) -->
+  <path d="M 50 16 Q 66 48 70 78" stroke="#00ff88" stroke-width="2.2" stroke-linecap="round" stroke-dasharray="2 1" fill="none" opacity="0.7"/>
+  <path d="M 50 16 Q 34 48 30 78" stroke="#ff2a8d" stroke-width="2.2" stroke-linecap="round" stroke-dasharray="2 1" fill="none" opacity="0.7"/>
+  <path d="M 18 40 Q 50 48 82 40" stroke="#00e5ff" stroke-width="2.5" stroke-linecap="round" fill="none" opacity="0.75"/>
+
+  <!-- 5 Distinct Colored Network Dots (Nodes) with crisp white border -->
+  <!-- Dot 1: Top (Cyan) -->
+  <circle cx="50" cy="16" r="6.5" fill="#00e5ff" stroke="#ffffff" stroke-width="2"/>
+  <!-- Dot 2: Top Right (Gold) -->
+  <circle cx="82" cy="40" r="6.5" fill="#ffd700" stroke="#ffffff" stroke-width="2"/>
+  <!-- Dot 3: Bottom Right (Neon Green) -->
+  <circle cx="70" cy="78" r="6.5" fill="#00ff88" stroke="#ffffff" stroke-width="2"/>
+  <!-- Dot 4: Bottom Left (Pink) -->
+  <circle cx="30" cy="78" r="6.5" fill="#ff2a8d" stroke="#ffffff" stroke-width="2"/>
+  <!-- Dot 5: Top Left (Violet) -->
+  <circle cx="18" cy="40" r="6.5" fill="#a855f7" stroke="#ffffff" stroke-width="2"/>
+</svg>
